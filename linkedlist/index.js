@@ -129,15 +129,27 @@ class LinkedList {
       return;
     }
 
-    // if (position > this.size()) {
-    //   const last = this.getLast();
-    //   last.next = new Node(val)
-    //   return
-    // }
-
     const prevNode = this.getAt(position - 1) || this.getLast();
     prevNode.next = new Node(val, prevNode.next);
 
+  }
+
+  forEach(fn) {
+    let node = this.head;
+    let counter = 0;
+    while (node) {
+      fn(node, counter);
+      node = node.next
+      counter++
+    }
+  }
+
+  *[Symbol.iterator]() {
+    let node = this.head;
+    while (node) {
+      yield node;
+      node = node.next;
+    }
   }
 
 }
